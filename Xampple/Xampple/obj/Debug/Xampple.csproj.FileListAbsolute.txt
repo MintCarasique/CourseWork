@@ -7,3 +7,5 @@ D:\Documents\4 Семестр\CourseWork\Xampple\Xampple\obj\Debug\Xampple.Prope
 D:\Documents\4 Семестр\CourseWork\Xampple\Xampple\obj\Debug\Xampple.csproj.GenerateResource.Cache
 D:\Documents\4 Семестр\CourseWork\Xampple\Xampple\obj\Debug\Xampple.exe
 D:\Documents\4 Семестр\CourseWork\Xampple\Xampple\obj\Debug\Xampple.pdb
+D:\Documents\4 Семестр\CourseWork\Xampple\Xampple\obj\Debug\Xampple.MessageForm.resources
+D:\Documents\4 Семестр\CourseWork\Xampple\Xampple\bin\Debug\S22.Xmpp.xml

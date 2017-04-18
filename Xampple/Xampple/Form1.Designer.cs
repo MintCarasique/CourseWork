@@ -34,8 +34,8 @@
             this.ServerNameTextBox = new System.Windows.Forms.TextBox();
             this.PasswordTextBox = new System.Windows.Forms.TextBox();
             this.PasswrdLabel = new System.Windows.Forms.Label();
-            this.ServerTextBox = new System.Windows.Forms.TextBox();
-            this.ServerLabel = new System.Windows.Forms.Label();
+            this.LoginButton = new System.Windows.Forms.Button();
+            this.LogLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // JIDbox
@@ -72,6 +72,7 @@
             this.ServerNameTextBox.Name = "ServerNameTextBox";
             this.ServerNameTextBox.Size = new System.Drawing.Size(77, 20);
             this.ServerNameTextBox.TabIndex = 3;
+            this.ServerNameTextBox.TextChanged += new System.EventHandler(this.ServerNameTextBox_TextChanged);
             // 
             // PasswordTextBox
             // 
@@ -89,29 +90,32 @@
             this.PasswrdLabel.TabIndex = 5;
             this.PasswrdLabel.Text = "Password:";
             // 
-            // ServerTextBox
+            // LoginButton
             // 
-            this.ServerTextBox.Location = new System.Drawing.Point(12, 102);
-            this.ServerTextBox.Name = "ServerTextBox";
-            this.ServerTextBox.Size = new System.Drawing.Size(219, 20);
-            this.ServerTextBox.TabIndex = 6;
+            this.LoginButton.Location = new System.Drawing.Point(82, 89);
+            this.LoginButton.Name = "LoginButton";
+            this.LoginButton.Size = new System.Drawing.Size(75, 23);
+            this.LoginButton.TabIndex = 6;
+            this.LoginButton.Text = "Login";
+            this.LoginButton.UseVisualStyleBackColor = true;
+            this.LoginButton.Click += new System.EventHandler(this.LoginButton_Click);
             // 
-            // ServerLabel
+            // LogLabel
             // 
-            this.ServerLabel.AutoSize = true;
-            this.ServerLabel.Location = new System.Drawing.Point(12, 86);
-            this.ServerLabel.Name = "ServerLabel";
-            this.ServerLabel.Size = new System.Drawing.Size(41, 13);
-            this.ServerLabel.TabIndex = 7;
-            this.ServerLabel.Text = "Server:";
+            this.LogLabel.AutoSize = true;
+            this.LogLabel.Location = new System.Drawing.Point(9, 125);
+            this.LogLabel.Name = "LogLabel";
+            this.LogLabel.Size = new System.Drawing.Size(35, 13);
+            this.LogLabel.TabIndex = 7;
+            this.LogLabel.Text = "label1";
             // 
             // loginForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(243, 340);
-            this.Controls.Add(this.ServerLabel);
-            this.Controls.Add(this.ServerTextBox);
+            this.ClientSize = new System.Drawing.Size(243, 147);
+            this.Controls.Add(this.LogLabel);
+            this.Controls.Add(this.LoginButton);
             this.Controls.Add(this.PasswrdLabel);
             this.Controls.Add(this.PasswordTextBox);
             this.Controls.Add(this.ServerNameTextBox);
@@ -135,8 +139,8 @@
         private System.Windows.Forms.TextBox ServerNameTextBox;
         private System.Windows.Forms.TextBox PasswordTextBox;
         private System.Windows.Forms.Label PasswrdLabel;
-        private System.Windows.Forms.TextBox ServerTextBox;
-        private System.Windows.Forms.Label ServerLabel;
+        private System.Windows.Forms.Button LoginButton;
+        private System.Windows.Forms.Label LogLabel;
     }
 }
 
