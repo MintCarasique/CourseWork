@@ -10,9 +10,9 @@ namespace Xampple
 {
     public class JabberCore
     {
-        public string Login, Server, Password, SelectedContact;
+        string Login, Server, Password, SelectedContact;
         MessageForm messageForm;
-        public XmppClient client = new XmppClient("default", "default", "default");
+        public static XmppClient client = new XmppClient("default", "default", "default");
         public void StartConnecting(string login, string server, string password)
         {
             Login = login;
@@ -20,9 +20,6 @@ namespace Xampple
             Password = password;
             XmppClient tempClient = new XmppClient(Server, Login, Password);
             client = tempClient;
-            client.Password = password;
-            client.Hostname = server;
-            client.Username = login;
             client.Connect();
             messageForm = new MessageForm();
             messageForm.Show();
@@ -38,7 +35,6 @@ namespace Xampple
         }
         public void SendMessage(string messageText)
         {
-            //XmppClient client = new XmppClient(Server, Login, Password);
             client.SendMessage(SelectedContact, messageText);            
         }
     }
