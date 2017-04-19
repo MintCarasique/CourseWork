@@ -23,10 +23,27 @@ namespace Xampple
         {
             return LogTextBox;
         }
-
+        public ListBox GetRosterListBox()
+        {
+            return RosterListBox;
+        }
+        public TextBox GetInputData()
+        {
+            return InputFieldTextBox;
+        }
         private void SendButton_Click(object sender, EventArgs e)
         {
+            client.SendMessage(InputFieldTextBox.Text);
+        }
 
+        private void MessageForm_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void RosterListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            client.SelectContact(RosterListBox.SelectedItem.ToString());
         }
     }
 }

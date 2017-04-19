@@ -35,7 +35,6 @@
             this.PasswordTextBox = new System.Windows.Forms.TextBox();
             this.PasswrdLabel = new System.Windows.Forms.Label();
             this.LoginButton = new System.Windows.Forms.Button();
-            this.LogLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // JIDbox
@@ -78,6 +77,7 @@
             // 
             this.PasswordTextBox.Location = new System.Drawing.Point(12, 63);
             this.PasswordTextBox.Name = "PasswordTextBox";
+            this.PasswordTextBox.PasswordChar = '*';
             this.PasswordTextBox.Size = new System.Drawing.Size(219, 20);
             this.PasswordTextBox.TabIndex = 4;
             // 
@@ -100,21 +100,11 @@
             this.LoginButton.UseVisualStyleBackColor = true;
             this.LoginButton.Click += new System.EventHandler(this.LoginButton_Click);
             // 
-            // LogLabel
-            // 
-            this.LogLabel.AutoSize = true;
-            this.LogLabel.Location = new System.Drawing.Point(9, 125);
-            this.LogLabel.Name = "LogLabel";
-            this.LogLabel.Size = new System.Drawing.Size(35, 13);
-            this.LogLabel.TabIndex = 7;
-            this.LogLabel.Text = "label1";
-            // 
             // loginForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(243, 147);
-            this.Controls.Add(this.LogLabel);
+            this.ClientSize = new System.Drawing.Size(243, 123);
             this.Controls.Add(this.LoginButton);
             this.Controls.Add(this.PasswrdLabel);
             this.Controls.Add(this.PasswordTextBox);
@@ -140,7 +130,6 @@
         private System.Windows.Forms.TextBox PasswordTextBox;
         private System.Windows.Forms.Label PasswrdLabel;
         private System.Windows.Forms.Button LoginButton;
-        private System.Windows.Forms.Label LogLabel;
     }
 }
 
