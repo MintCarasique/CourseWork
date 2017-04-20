@@ -87,7 +87,7 @@
             this.Controls.Add(this.SendButton);
             this.Controls.Add(this.LogTextBox);
             this.Name = "MessageForm";
-            this.Text = "MessageForm";
+            this.Text = "Xampple";
             this.Load += new System.EventHandler(this.MessageForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

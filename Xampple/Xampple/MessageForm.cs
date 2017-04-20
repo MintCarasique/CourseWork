@@ -23,6 +23,10 @@ namespace Xampple
         {
             return LogTextBox;
         }
+        public ListBox GetLogListBox()
+        {
+            return LogListBox;
+        }
         public ListBox GetRosterListBox()
         {
             return RosterListBox;
