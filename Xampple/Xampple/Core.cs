@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using S22.Xmpp;
 using S22.Xmpp.Client;
 using S22.Xmpp.Im;
 
@@ -11,16 +10,13 @@ namespace Xampple
 {
     public class JabberCore
     {
-        string Login, Server, Password, SelectedContact;
+        string SelectedContact;
         static MessageForm messageForm = new MessageForm();
         
         public static XmppClient client = new XmppClient("default", "default", "default");
         public void StartConnecting(string login, string server, string password)
         {
-            Login = login;
-            Server = server;
-            Password = password;
-            XmppClient tempClient = new XmppClient(Server, Login, Password);            
+            XmppClient tempClient = new XmppClient(server, login, password);            
             client = tempClient;
             client.Message += OnNewMessage;
             client.Connect();
