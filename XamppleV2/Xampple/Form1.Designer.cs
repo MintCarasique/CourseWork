@@ -42,6 +42,7 @@
             this.SendMessageButton = new System.Windows.Forms.Button();
             this.MainFormStatusStrip = new System.Windows.Forms.StatusStrip();
             this.ClientConnectStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.showRosterListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MainMenu.SuspendLayout();
             this.MainFormStatusStrip.SuspendLayout();
             this.SuspendLayout();
@@ -61,6 +62,7 @@
             // userToolStripMenuItem
             // 
             this.userToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.showRosterListToolStripMenuItem,
             this.logoutToolStripMenuItem,
             this.toolStripMenuItem1,
             this.exitToolStripMenuItem});
@@ -71,18 +73,18 @@
             // logoutToolStripMenuItem
             // 
             this.logoutToolStripMenuItem.Name = "logoutToolStripMenuItem";
-            this.logoutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.logoutToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
             this.logoutToolStripMenuItem.Text = "Logout";
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(149, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(157, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             // 
             // editToolStripMenuItem
@@ -96,7 +98,7 @@
             // settingsToolStripMenuItem
             // 
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.settingsToolStripMenuItem.Text = "Settings";
             // 
             // helpToolStripMenuItem
@@ -157,6 +159,12 @@
             this.ClientConnectStatusLabel.Size = new System.Drawing.Size(105, 17);
             this.ClientConnectStatusLabel.Text = "Not connected yet";
             // 
+            // showRosterListToolStripMenuItem
+            // 
+            this.showRosterListToolStripMenuItem.Name = "showRosterListToolStripMenuItem";
+            this.showRosterListToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+            this.showRosterListToolStripMenuItem.Text = "Show Roster List";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -199,6 +207,7 @@
         private System.Windows.Forms.Button SendMessageButton;
         private System.Windows.Forms.StatusStrip MainFormStatusStrip;
         private System.Windows.Forms.ToolStripStatusLabel ClientConnectStatusLabel;
+        private System.Windows.Forms.ToolStripMenuItem showRosterListToolStripMenuItem;
     }
 }
 

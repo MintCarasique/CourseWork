@@ -17,11 +17,6 @@ namespace Xampple
             TopMost = true;
             InitializeComponent();
         }
-
-        private void LoginForm_Load(object sender, EventArgs e)
-        {
-
-        }
         public bool isManuallyClosed = false;
         public bool ClosedByLogin = false;
         private void LoginForm_FormClosing(object sender, FormClosingEventArgs e)
