@@ -12,10 +12,12 @@ namespace Xampple
 {
     public partial class LoginForm : Form
     {
+        public static LoginForm loginForm = null;
         public LoginForm()
         {
             TopMost = true;
             InitializeComponent();
+            loginForm = this;
         }
         public bool isManuallyClosed = false;
         public bool ClosedByLogin = false;
@@ -44,7 +46,24 @@ namespace Xampple
         {
             isManuallyClosed = false;
             ClosedByLogin = true;
+            MainForm.mainForm.StartLogin(UsernameTextBox.Text, ServerTextBox.Text, PasswordTextBox.Text);
             LoginForm.ActiveForm.Close();
+        }
+        public void ShowMessage()
+        {
+            DialogResult ErrorDialog = MessageBox.Show("Could't connect to server", "Connection Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+        public TextBox GetLogin()
+        {
+            return UsernameTextBox;
+        }
+        public TextBox GetServer()
+        {
+            return ServerTextBox;
+        }
+        public TextBox GetPassword()
+        {
+            return PasswordTextBox;
         }
     }
 }

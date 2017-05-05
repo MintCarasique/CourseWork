@@ -12,22 +12,24 @@ namespace Xampple
 {
     public partial class MainForm : Form
     {
+        public static MainForm mainForm = null;
         public MainForm()
         {
             InitializeComponent();
+            mainForm = this;
         }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
+        XamppleCore core = new XamppleCore();        
         private void MainForm_Load(object sender, EventArgs e)
         {
             bool isLogged = false;
             if (!isLogged)
-                LoadLoginForm();
-                
+            {
+                LoadLoginForm();            
+            }                
+        }
+        public void StartLogin(string Username, string Server, string Password)
+        {
+            core.StartConnecting(Username, Server, Password);
         }
         private void LoadLoginForm()
         {
@@ -38,6 +40,10 @@ namespace Xampple
         public void CloseMainForm()
         {
             MainForm.ActiveForm.Close();
+        }
+        public ListBox GetMessageBox()
+        {
+            return MessageListBox;
         }
     }
 }

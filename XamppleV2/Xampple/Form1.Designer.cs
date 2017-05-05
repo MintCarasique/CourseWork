@@ -132,7 +132,6 @@
             this.MessageInputTextBox.Name = "MessageInputTextBox";
             this.MessageInputTextBox.Size = new System.Drawing.Size(492, 27);
             this.MessageInputTextBox.TabIndex = 2;
-            this.MessageInputTextBox.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // SendMessageButton
             // 
