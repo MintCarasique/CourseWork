@@ -51,7 +51,7 @@ namespace Xampple
         }
         public void ShowMessage()
         {
-            DialogResult ErrorDialog = MessageBox.Show("Could't connect to server", "Connection Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            DialogResult ErrorDialog = MessageBox.Show("Couldn't connect to server", "Connection Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
         public TextBox GetLogin()
         {
