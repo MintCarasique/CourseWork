@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -27,9 +28,14 @@ namespace Xampple
                 LoadLoginForm();            
             }                
         }
+        public string username, server, password;
         public void StartLogin(string Username, string Server, string Password)
         {
-            core.StartConnecting(Username, Server, Password);
+             username = Username;
+            server = Server;
+            password = Password;
+            MessageBackgroundWorker.RunWorkerAsync();   
+        //core.StartConnecting(Username, Server, Password);
         }
         private void LoadLoginForm()
         {
@@ -48,6 +54,11 @@ namespace Xampple
         public ComboBox GetRosterComboBox()
         {
             return RosterComboBox;
+        }
+
+        private void MessageBackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            core.StartConnecting(username, server, password);
         }
     }
 }

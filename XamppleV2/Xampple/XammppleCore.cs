@@ -14,27 +14,15 @@ namespace Xampple
         public void StartConnecting(string Username, string Server, string Password)
         {
             client = new XmppClient(Server, Username, Password);
-            try
-            {
-                client.Connect();
-                MainForm.mainForm.GetMessageBox().Items.Add("Connected as " + client.Username + '@' + client.Hostname);
-                client.SetStatus(S22.Xmpp.Im.Availability.Online);
-                GetRosterList();  
-            }
-            catch (System.InvalidOperationException)
-            {
-
-            }
-            catch
-            {
-                LoginForm.loginForm.ShowMessage();
-            }
-                  
+            client.Connect();
+            MainForm.mainForm.GetMessageBox().Invoke(new Action(() => MainForm.mainForm.GetMessageBox().Items.Add("Connected as " + client.Username + '@' + client.Hostname)));
+            client.SetStatus(S22.Xmpp.Im.Availability.Online);
+            GetRosterList();  
         }
         public void GetRosterList()
         {
             foreach (var item in client.GetRoster())
-                MainForm.mainForm.GetRosterComboBox().Items.Add(item.Jid);
+                MainForm.mainForm.GetRosterComboBox().Invoke(new Action(() => MainForm.mainForm.GetRosterComboBox().Items.Add(item.Jid)));
         }
     }
 }

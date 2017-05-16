@@ -44,6 +44,7 @@
             this.MainFormStatusStrip = new System.Windows.Forms.StatusStrip();
             this.ClientConnectStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.RosterComboBox = new System.Windows.Forms.ComboBox();
+            this.MessageBackgroundWorker = new System.ComponentModel.BackgroundWorker();
             this.MainMenu.SuspendLayout();
             this.MainFormStatusStrip.SuspendLayout();
             this.SuspendLayout();
@@ -174,6 +175,10 @@
             this.RosterComboBox.Size = new System.Drawing.Size(180, 21);
             this.RosterComboBox.TabIndex = 5;
             // 
+            // MessageBackgroundWorker
+            // 
+            this.MessageBackgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.MessageBackgroundWorker_DoWork);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -219,6 +224,7 @@
         private System.Windows.Forms.ToolStripStatusLabel ClientConnectStatusLabel;
         private System.Windows.Forms.ToolStripMenuItem showRosterListToolStripMenuItem;
         private System.Windows.Forms.ComboBox RosterComboBox;
+        private System.ComponentModel.BackgroundWorker MessageBackgroundWorker;
     }
 }
 
