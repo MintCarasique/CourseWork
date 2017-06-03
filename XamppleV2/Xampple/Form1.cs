@@ -8,8 +8,6 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using S22.Xmpp.Client;
-using S22.Xmpp.Im;
 
 namespace Xampple
 {

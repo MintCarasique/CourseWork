@@ -8,5 +8,3 @@ D:\Documents\4 Семестр\CourseWork\XamppleV2\Xampple\obj\Debug\Xampple.csp
 D:\Documents\4 Семестр\CourseWork\XamppleV2\Xampple\obj\Debug\Xampple.exe
 D:\Documents\4 Семестр\CourseWork\XamppleV2\Xampple\obj\Debug\Xampple.pdb
 D:\Documents\4 Семестр\CourseWork\XamppleV2\Xampple\obj\Debug\Xampple.LoginForm.resources
-D:\Documents\4 Семестр\CourseWork\XamppleV2\Xampple\bin\Debug\S22.Xmpp.dll
-D:\Documents\4 Семестр\CourseWork\XamppleV2\Xampple\bin\Debug\S22.Xmpp.xml

@@ -9,16 +9,12 @@ using System.Xml;
 using System.Net.Sockets;
 using System.Xml.Linq;
 using System.Threading.Tasks;
-using S22.Xmpp.Client;
-using S22.Xmpp.Im;
 
 namespace Xampple
 {
     class XamppleCore
     {
-        static XDocument HandshakeXML;
         static Socket server = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-        //static XmppClient client;
         public void StartConnecting(string Username, string Hostname, string Password)
         {
             try
@@ -49,14 +45,6 @@ namespace Xampple
 
             string prefix = "<?xml version='1.0' encoding='UTF-8'?><stream:stream to='";
             string postfix = "' xmlns='jabber:client' xmlns:stream='http://etherx.jabber.org/streams' xml:l='ru' version='1.0'>";
-            XNamespace stream = "stream";
-            HandshakeXML = new XDocument(
-            new XElement(stream + "stream",
-                new XAttribute("to", hostname),
-                new XAttribute("xmlns", "jabber:client"),
-                new XAttribute(XNamespace.Xmlns + "stream", "http://etherx.jabber.org/streams"),
-                new XAttribute(XNamespace.Xml + "l", "ru"),
-                new XAttribute("version", "1.0")));
             string initiateConnection = prefix + hostname + postfix;
             //string initConn = HandshakeXML.ToString(SaveOptions.DisableFormatting);
             byte[] msg = Encoding.UTF8.GetBytes(initiateConnection);
@@ -290,11 +278,6 @@ namespace Xampple
                     MainForm.mainForm.GetMessageBox().Invoke(new Action(() => MainForm.mainForm.GetMessageBox().Items.Add(mes)));
                     break;
             }
-        }
-        public static void OnNewMessage(object sender, MessageEventArgs e)
-        {
-            //Console.WriteLine("Message from <" + e.Jid + ">: " + e.Message.Body);
-            MainForm.mainForm.GetMessageBox().Invoke(new Action(() => MainForm.mainForm.GetMessageBox().Items.Add(e.Jid + ":" + e.Message.Body)));
         }
     }
     
