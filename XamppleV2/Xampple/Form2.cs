@@ -44,14 +44,30 @@ namespace Xampple
 
         private void LoginButton_Click(object sender, EventArgs e)
         {
-            isManuallyClosed = false;
-            ClosedByLogin = true;
-            MainForm.mainForm.StartLogin(UsernameTextBox.Text, ServerTextBox.Text, PasswordTextBox.Text);
-            LoginForm.ActiveForm.Close();
+            if (EmptyFields())
+            {
+                DialogResult ErrorDialog = MessageBox.Show("Some fields are empty.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                isManuallyClosed = false;
+                ClosedByLogin = true;
+                MainForm.mainForm.StartLogin(UsernameTextBox.Text, ServerTextBox.Text, PasswordTextBox.Text);
+                LoginForm.ActiveForm.Close();
+            }
         }
-        public void ShowMessage()
+        public void ShowMessage(Exception e)
         {
-            DialogResult ErrorDialog = MessageBox.Show("Couldn't connect to server", "Connection Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            DialogResult ErrorDialog = MessageBox.Show("Error: " + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+        public bool EmptyFields()
+        {
+            bool flag = false;
+            if ((UsernameTextBox.Text == "") || (ServerTextBox.Text == "") || (PasswordTextBox.Text == ""))
+            
+                flag = true;
+            
+            return flag;
         }
         public TextBox GetLogin()
         {
@@ -65,5 +81,6 @@ namespace Xampple
         {
             return PasswordTextBox;
         }
+    
     }
 }

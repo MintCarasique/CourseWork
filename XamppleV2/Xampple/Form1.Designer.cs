@@ -41,12 +41,10 @@
             this.MessageListBox = new System.Windows.Forms.ListBox();
             this.MessageInputTextBox = new System.Windows.Forms.TextBox();
             this.SendMessageButton = new System.Windows.Forms.Button();
-            this.MainFormStatusStrip = new System.Windows.Forms.StatusStrip();
-            this.ClientConnectStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.RosterComboBox = new System.Windows.Forms.ComboBox();
             this.MessageBackgroundWorker = new System.ComponentModel.BackgroundWorker();
+            this.LogLabel = new System.Windows.Forms.Label();
             this.MainMenu.SuspendLayout();
-            this.MainFormStatusStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // MainMenu
@@ -125,12 +123,12 @@
             // 
             // MessageListBox
             // 
-            this.MessageListBox.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.MessageListBox.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.MessageListBox.FormattingEnabled = true;
-            this.MessageListBox.ItemHeight = 20;
+            this.MessageListBox.HorizontalScrollbar = true;
             this.MessageListBox.Location = new System.Drawing.Point(12, 27);
             this.MessageListBox.Name = "MessageListBox";
-            this.MessageListBox.Size = new System.Drawing.Size(582, 284);
+            this.MessageListBox.Size = new System.Drawing.Size(582, 277);
             this.MessageListBox.TabIndex = 1;
             // 
             // MessageInputTextBox
@@ -150,22 +148,7 @@
             this.SendMessageButton.TabIndex = 3;
             this.SendMessageButton.Text = "Send";
             this.SendMessageButton.UseVisualStyleBackColor = true;
-            // 
-            // MainFormStatusStrip
-            // 
-            this.MainFormStatusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ClientConnectStatusLabel});
-            this.MainFormStatusStrip.Location = new System.Drawing.Point(0, 371);
-            this.MainFormStatusStrip.Name = "MainFormStatusStrip";
-            this.MainFormStatusStrip.Size = new System.Drawing.Size(604, 22);
-            this.MainFormStatusStrip.TabIndex = 4;
-            this.MainFormStatusStrip.Text = "statusStrip1";
-            // 
-            // ClientConnectStatusLabel
-            // 
-            this.ClientConnectStatusLabel.Name = "ClientConnectStatusLabel";
-            this.ClientConnectStatusLabel.Size = new System.Drawing.Size(105, 17);
-            this.ClientConnectStatusLabel.Text = "Not connected yet";
+            this.SendMessageButton.Click += new System.EventHandler(this.SendMessageButton_Click);
             // 
             // RosterComboBox
             // 
@@ -179,13 +162,23 @@
             // 
             this.MessageBackgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.MessageBackgroundWorker_DoWork);
             // 
+            // LogLabel
+            // 
+            this.LogLabel.AutoSize = true;
+            this.LogLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.LogLabel.Location = new System.Drawing.Point(12, 369);
+            this.LogLabel.Name = "LogLabel";
+            this.LogLabel.Size = new System.Drawing.Size(104, 16);
+            this.LogLabel.TabIndex = 6;
+            this.LogLabel.Text = "Not connected...";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(604, 393);
+            this.Controls.Add(this.LogLabel);
             this.Controls.Add(this.RosterComboBox);
-            this.Controls.Add(this.MainFormStatusStrip);
             this.Controls.Add(this.SendMessageButton);
             this.Controls.Add(this.MessageInputTextBox);
             this.Controls.Add(this.MessageListBox);
@@ -199,8 +192,6 @@
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.MainMenu.ResumeLayout(false);
             this.MainMenu.PerformLayout();
-            this.MainFormStatusStrip.ResumeLayout(false);
-            this.MainFormStatusStrip.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -220,11 +211,10 @@
         private System.Windows.Forms.ListBox MessageListBox;
         private System.Windows.Forms.TextBox MessageInputTextBox;
         private System.Windows.Forms.Button SendMessageButton;
-        private System.Windows.Forms.StatusStrip MainFormStatusStrip;
-        private System.Windows.Forms.ToolStripStatusLabel ClientConnectStatusLabel;
         private System.Windows.Forms.ToolStripMenuItem showRosterListToolStripMenuItem;
         private System.Windows.Forms.ComboBox RosterComboBox;
         private System.ComponentModel.BackgroundWorker MessageBackgroundWorker;
+        private System.Windows.Forms.Label LogLabel;
     }
 }
 

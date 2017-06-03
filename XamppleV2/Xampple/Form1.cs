@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using S22.Xmpp.Client;
+using S22.Xmpp.Im;
 
 namespace Xampple
 {
@@ -26,7 +28,8 @@ namespace Xampple
             if (!isLogged)
             {
                 LoadLoginForm();            
-            }                
+            }
+                            
         }
         public string username, server, password;
         public void StartLogin(string Username, string Server, string Password)
@@ -34,7 +37,8 @@ namespace Xampple
              username = Username;
             server = Server;
             password = Password;
-            MessageBackgroundWorker.RunWorkerAsync();   
+            MessageBackgroundWorker.RunWorkerAsync();
+            RosterComboBox.Items.Add("drStrangeL0ve@jabber.ru");   
         //core.StartConnecting(Username, Server, Password);
         }
         private void LoadLoginForm()
@@ -56,6 +60,15 @@ namespace Xampple
             return RosterComboBox;
         }
 
+        private void SendMessageButton_Click(object sender, EventArgs e)
+        {
+            core.MessageSender(MessageInputTextBox.Text, RosterComboBox.Items[RosterComboBox.SelectedIndex].ToString());
+            MessageInputTextBox.Text = "";
+        }
+        public Label GetLogLabel()
+        {
+            return LogLabel;
+        }
         private void MessageBackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             core.StartConnecting(username, server, password);
