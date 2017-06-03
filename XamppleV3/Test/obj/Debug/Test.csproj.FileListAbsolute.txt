@@ -1,6 +1,0 @@
-D:\Documents\4 Семестр\CourseWork\XamppleV3\Test\bin\Debug\Test.exe.config
-D:\Documents\4 Семестр\CourseWork\XamppleV3\Test\obj\Debug\Test.csprojResolveAssemblyReference.cache
-D:\Documents\4 Семестр\CourseWork\XamppleV3\Test\bin\Debug\Test.exe
-D:\Documents\4 Семестр\CourseWork\XamppleV3\Test\bin\Debug\Test.pdb
-D:\Documents\4 Семестр\CourseWork\XamppleV3\Test\obj\Debug\Test.exe
-D:\Documents\4 Семестр\CourseWork\XamppleV3\Test\obj\Debug\Test.pdb

@@ -234,40 +234,59 @@ namespace Xampple
             XmlDocument ReceivedMessage = new XmlDocument();
             ReceivedMessage.LoadXml(message);
             string type = "";
-            string TypingUser = "";
+            string User = "";
             string MessageBody = "";
             string mes = "";
             if (ReceivedMessage.FirstChild.Name == "presence")
-                type = ReceivedMessage.FirstChild.ChildNodes[1].Name;
+            {
+                if (ReceivedMessage.FirstChild.FirstChild == null)
+                {
+                    if (ReceivedMessage.FirstChild.Attributes[2].Value == "unavailable")
+                    {
+                        type = "logout";
+                        User = ReceivedMessage.FirstChild.Attributes[0].Value;
+                    }
+                }
+                else
+                    type = ReceivedMessage.FirstChild.ChildNodes[1].Name;
+            }
+            else
             if (ReceivedMessage.FirstChild.Name == "message")
+            {
                 if ((ReceivedMessage.FirstChild.FirstChild.Name == "composing") | (ReceivedMessage.FirstChild.FirstChild.Name == "paused"))
                 {
-                    TypingUser = ReceivedMessage.FirstChild.Attributes[0].Value;
+                    User = ReceivedMessage.FirstChild.Attributes[0].Value;
                     type = ReceivedMessage.FirstChild.FirstChild.Name;
                 }
-            if (ReceivedMessage.FirstChild.LastChild.Name == "body")
-            {
-                type = "body";
-                TypingUser = ReceivedMessage.FirstChild.Attributes[0].Value;
-                MessageBody = ReceivedMessage.FirstChild.LastChild.LastChild.Value;
+                if (ReceivedMessage.FirstChild.LastChild.Name == "body")
+                {
+                    type = "body";
+
+                    User = ReceivedMessage.FirstChild.Attributes[0].Value;
+                    MessageBody = ReceivedMessage.FirstChild.LastChild.LastChild.Value;
+                }
             }
             switch (type)
             {
                 case "status":
-                    string ConnectedUser = ReceivedMessage.FirstChild.Attributes[0].Value;
+                    User = ReceivedMessage.FirstChild.Attributes[0].Value;
                     string status = ReceivedMessage.FirstChild.ChildNodes[1].InnerText;
-                    mes = "(" + DateTime.Now.ToString("hh:mm:ss") + ") User " + ConnectedUser + " changed status to " + status + '.';
+                    mes = "(" + DateTime.Now.ToString("hh:mm:ss") + ") User " + User + " changed status to " + status + '.';
                     MainForm.mainForm.GetMessageBox().Invoke(new Action(() => MainForm.mainForm.GetMessageBox().Items.Add(mes)));
                     break;
                 case "composing":
-                    MainForm.mainForm.GetLogLabel().Invoke(new Action(() => MainForm.mainForm.GetLogLabel().Text = TypingUser + " is typing..."));
+                    MainForm.mainForm.GetLogLabel().Invoke(new Action(() => MainForm.mainForm.GetLogLabel().Text = User + " is typing..."));
                     break;
                 case "paused":
                     MainForm.mainForm.GetLogLabel().Invoke(new Action(() => MainForm.mainForm.GetLogLabel().Text = ""));
                     break;
                 case "body":
-                    mes = "(" + DateTime.Now.ToString("hh:mm:ss") + ") " + TypingUser + ": " + MessageBody; 
+                    mes = "(" + DateTime.Now.ToString("hh:mm:ss") + ") " + User + ": " + MessageBody; 
                     MainForm.mainForm.GetLogLabel().Invoke(new Action(() => MainForm.mainForm.GetLogLabel().Text = ""));
+                    MainForm.mainForm.GetMessageBox().Invoke(new Action(() => MainForm.mainForm.GetMessageBox().Items.Add(mes)));
+                    break;
+                case "logout":
+                    mes = "(" + DateTime.Now.ToString("hh:mm:ss") + ") " + User + " now offline.";
                     MainForm.mainForm.GetMessageBox().Invoke(new Action(() => MainForm.mainForm.GetMessageBox().Items.Add(mes)));
                     break;
             }
