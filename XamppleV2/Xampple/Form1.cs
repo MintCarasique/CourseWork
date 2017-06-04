@@ -19,7 +19,7 @@ namespace Xampple
             InitializeComponent();
             mainForm = this;
         }
-        XamppleCore core = new XamppleCore();        
+        XamppleCore core = new XamppleCore();
         private void MainForm_Load(object sender, EventArgs e)
         {
             bool isLogged = false;
@@ -32,12 +32,10 @@ namespace Xampple
         public string username, server, password;
         public void StartLogin(string Username, string Server, string Password)
         {
-             username = Username;
+            username = Username;
             server = Server;
             password = Password;
-            MessageBackgroundWorker.RunWorkerAsync();
-            RosterComboBox.Items.Add("drStrangeL0ve@jabber.ru");   
-        //core.StartConnecting(Username, Server, Password);
+            MessageBackgroundWorker.RunWorkerAsync(); 
         }
         private void LoadLoginForm()
         {

@@ -7,64 +7,44 @@ using System.IO;
 using System.Net;
 using System.Xml;
 using System.Net.Sockets;
-using System.Xml.Linq;
 using System.Threading.Tasks;
 
 namespace Xampple
 {
     class XamppleCore
     {
-        static Socket server = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+        static Socket server;
         public void StartConnecting(string Username, string Hostname, string Password)
         {
             try
             {
+                Socket server = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                bool reuse = true;
                 IPAddress[] ip = Dns.GetHostAddresses(Hostname);
                 server.Connect(ip[0], 5222);
-                InitiateConnection(server, Hostname);
-                StartAuthorization(server, Hostname, Username, Password);
-                BindResource(server, Hostname);
-                SetPresenceStatus(server, "Online");
-                StartListening(server, Username, Hostname, Password);
+                SendHandshake(server, Hostname);
+                int result = StartAuthorization(server, Hostname, Username, Password);
+                if (result == 0)
+                {
+                    BindResource(server, Hostname);
+                    GetRosterList(server, Username, Hostname);
+                    SetPresenceStatus(server, "Online");                    
+                    LoginForm.loginForm.GetLoginForm().Invoke(new Action(() => LoginForm.loginForm.Close()));
+                    StartListening(server, Username, Hostname, Password);
+                }
+                else
+                {
+                    LoginForm.loginForm.ShowMessage();
+                    server.Disconnect(reuse);
+                }
             }
             catch (Exception e)
             {
-                LoginForm.loginForm.ShowMessage(e);
-            }
-            //GetRosterList(server, Username, Hostname);
-            //MainForm.mainForm.GetStatusLabel().Invoke(new Action(() => MainForm.mainForm.GetStatusLabel().Text = "message"));
-            //client = new XmppClient(Server, Username, Password);
-            //client.Connect();
-            //MainForm.mainForm.GetMessageBox().Invoke(new Action(() => MainForm.mainForm.GetMessageBox().Items.Add("Connected as " + client.Username + '@' + client.Hostname)));
-            //client.SetStatus(S22.Xmpp.Im.Availability.Online);
-            //GetRosterList();  
+                LoginForm.loginForm.ShowErrorMessage(e);
+            }  
 
         }
-        public static int InitiateConnection(Socket server, string hostname)
-        {
-
-            string prefix = "<?xml version='1.0' encoding='UTF-8'?><stream:stream to='";
-            string postfix = "' xmlns='jabber:client' xmlns:stream='http://etherx.jabber.org/streams' xml:l='ru' version='1.0'>";
-            string initiateConnection = prefix + hostname + postfix;
-            //string initConn = HandshakeXML.ToString(SaveOptions.DisableFormatting);
-            byte[] msg = Encoding.UTF8.GetBytes(initiateConnection);
-            //byte[] msg = System.Text.Encoding.UTF8.GetBytes(HandshakeXML);
-            byte[] bytes = new byte[server.ReceiveBufferSize];
-            try
-            {
-                int i = server.Send(msg);
-                i = server.Receive(bytes);
-                string message = Encoding.UTF8.GetString(bytes, 0, i);
-                i = server.Receive(bytes);
-                message = Encoding.UTF8.GetString(bytes, 0, i);
-                MainForm.mainForm.GetMessageBox().Invoke(new Action(() => MainForm.mainForm.GetMessageBox().Items.Add(message)));
-            }
-            catch (SocketException e)
-            {
-                return (e.ErrorCode);
-            }
-            return 0;
-        }
+        
         public static int StartAuthorization(Socket server, string hostname, string username, string password)
         {
             string plainText = "\x00" + username + "\x00" + password;
@@ -78,13 +58,23 @@ namespace Xampple
                 int i = server.Send(msg);
                 i = server.Receive(bytes);
                 string message = Encoding.UTF8.GetString(bytes, 0, i);
-                XElement ResultPacket = XElement.Parse(message);
-                MainForm.mainForm.GetMessageBox().Invoke(new Action(() => MainForm.mainForm.GetMessageBox().Items.Add(ResultPacket)));
-                SendHandshake(server, hostname);
+                XmlDocument ReceivedPacket = new XmlDocument();
+                ReceivedPacket.LoadXml(message);
+                if (ReceivedPacket.LastChild.Name != "success")
+                {
+                    if (ReceivedPacket.LastChild.LastChild.Name == "not-authorized")
+                        return 1;
+                }
+                else
+                {
+                    MainForm.mainForm.GetMessageBox().Invoke(new Action(() => MainForm.mainForm.GetMessageBox().Items.Add(ReceivedPacket)));
+                    SendHandshake(server, hostname);
+                    return 0;
+                }
             }
             catch (SocketException e)
             {
-                return (e.ErrorCode);
+                LoginForm.loginForm.ShowErrorMessage(e);
             }
             return 0;
         }
@@ -107,7 +97,7 @@ namespace Xampple
             }
             catch (SocketException e)
             {
-                return (e.ErrorCode);
+                LoginForm.loginForm.ShowErrorMessage(e);
             }
             return 0;
         }
@@ -126,7 +116,7 @@ namespace Xampple
             }
             catch (SocketException e)
             {
-                return (e.ErrorCode);
+                LoginForm.loginForm.ShowErrorMessage(e);
             }
             return 0;
         }
@@ -145,7 +135,7 @@ namespace Xampple
             }
             catch (SocketException e)
             {
-                //Console.WriteLine("{0} Error code: {1}.", e.Message, e.ErrorCode);
+                LoginForm.loginForm.ShowErrorMessage(e);
             }
         }
         public static int GetRosterList(Socket server, string username, string hostname)
@@ -158,19 +148,18 @@ namespace Xampple
                 int i = server.Send(msg);
                 i = server.Receive(bytes);
                 string message = Encoding.UTF8.GetString(bytes, 0, i);
-                XDocument ResultPacket = XDocument.Parse(message);
-                //foreach (XElement el in ResultPacket.Root.LastNode.E)
-                //{
-                //    string temp = (string)el.Attribute("jid");
-                //    MainForm.mainForm.GetMessageBox().Invoke(new Action(() => MainForm.mainForm.GetMessageBox().Items.Add((string)el.Attribute("jid"))));
-                //}
-
+                XmlDocument ReceivedRosterList = new XmlDocument();
+                ReceivedRosterList.LoadXml(message);
+                foreach(XmlElement el in ReceivedRosterList.LastChild.LastChild.ChildNodes)
+                {
+                    string contact = el.Attributes[el.Attributes.Count - 1].Value;
+                    MainForm.mainForm.GetRosterComboBox().Invoke(new Action(() => MainForm.mainForm.GetRosterComboBox().Items.Add(contact)));
+                }
                 Console.WriteLine(message + "\n");
             }
             catch (SocketException e)
             {
-                Console.WriteLine("{0} Error code: {1}.", e.Message, e.ErrorCode);
-                return (e.ErrorCode);
+                LoginForm.loginForm.ShowErrorMessage(e);
             }
             return 0;
         }
@@ -194,17 +183,13 @@ namespace Xampple
             }
             catch (SocketException e)
             {
-                return (e.ErrorCode);
+                LoginForm.loginForm.ShowErrorMessage(e);
             }
             return 0;
         }
 
         public void StartListening(Socket server, string Username, string Hostname, string Password)
         {
-            //XmppClient client = new XmppClient(Hostname, Username, Password);
-            //client.Message += OnNewMessage;
-            //client.Connect();
-            //client.SetStatus(Availability.Online);
             while (true)
             {
                 string message = null;
@@ -212,12 +197,9 @@ namespace Xampple
                 int bytesRec = server.Receive(bytes);
                 message += Encoding.UTF8.GetString(bytes, 0, bytesRec);
                 ParseMessage(message);
-                //if (message != "")
-                //MainForm.mainForm.GetMessageBox().Invoke(new Action(() => MainForm.mainForm.GetMessageBox().Items.Add(message)));
             }
-
         }
-        public void ParseMessage(string message)
+        public static void ParseMessage(string message)
         {
             XmlDocument ReceivedMessage = new XmlDocument();
             ReceivedMessage.LoadXml(message);

@@ -21,6 +21,7 @@ namespace Xampple
         }
         public bool isManuallyClosed = false;
         public bool ClosedByLogin = false;
+        public bool isSuccessful = false;
         private void LoginForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (!ClosedByLogin)
@@ -51,12 +52,15 @@ namespace Xampple
             else
             {
                 isManuallyClosed = false;
-                ClosedByLogin = true;
+                ClosedByLogin = true;                
                 MainForm.mainForm.StartLogin(UsernameTextBox.Text, ServerTextBox.Text, PasswordTextBox.Text);
-                LoginForm.ActiveForm.Close();
             }
         }
-        public void ShowMessage(Exception e)
+        public void ShowMessage()
+        {
+            DialogResult ErrorDialog = MessageBox.Show("Incorrect JabberID or password!", "Authorization Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+        public void ShowErrorMessage(Exception e)
         {
             DialogResult ErrorDialog = MessageBox.Show("Error: " + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
@@ -81,6 +85,9 @@ namespace Xampple
         {
             return PasswordTextBox;
         }
-    
+        public LoginForm GetLoginForm()
+        {
+            return loginForm;
+        }    
     }
 }
